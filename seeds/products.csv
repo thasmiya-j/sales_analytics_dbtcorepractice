@@ -1,0 +1,18 @@
+product_id,product_name,category,currency,unit_price
+101,Keyboard,Electronics,USD,40.0
+102,Mouse,Electronics,USD,40.0
+103,USB Cable,Accessories,USD,20.0
+104,Desk Lamp,Home,USD,50.0
+105,Monitor,Electronics,USD,100.0
+106,Laptop Stand,Accessories,USD,100.0
+107,Notebook,Stationery,USD,25.0
+108,Headphones,Electronics,USD,90.0
+109,Office Chair,Furniture,USD,100.0
+110,Webcam,Electronics,USD,60.0
+111,Power Bank,Electronics,USD,55.0
+112,Broken Sample,Test,USD,-25.0
+113,SSD,Electronics,USD,50.0
+114,Printer,Electronics,USD,175.0
+115,Standing Desk,Furniture,USD,125.0
+116,Keyboard Pro,Electronics,USD,110.0
+117,Missing Price,Accessories,USD,

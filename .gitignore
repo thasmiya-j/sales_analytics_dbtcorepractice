@@ -1,0 +1,27 @@
+
+#dbt generated files 
+target/
+dbt_packages/
+logs/
+.env
+dbt_internal_packages/
+
+#python 
+__pychache__/
+*.py[cod]
+
+#virtual environments 
+.venv/
+venv/
+
+#environment files/ secrets
+.env
+.env.*
+
+#os files 
+.DS_store
+Thumbs.dbt
+
+#IDE
+.vscode/
+.idea/
