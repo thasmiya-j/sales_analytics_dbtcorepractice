@@ -1,3 +1,4 @@
+--staging model for customer data
 select 
        CUSTOMER_ID,
        CUSTOMER_NAME,
