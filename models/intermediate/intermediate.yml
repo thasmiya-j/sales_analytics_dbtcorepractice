@@ -1,0 +1,94 @@
+models:
+  - name: int_orders_enriched
+    description: "Intermediate model combining order, customer, product, order item, and payment information."
+
+    columns:
+      - name: order_id
+        description: "Identifier of the order."
+
+      - name: order_date
+        description: "Date when the order was placed."
+
+      - name: order_status
+        description: "Current status of the order."
+
+      - name: customer_id
+        description: "Identifier of the customer associated with the order."
+
+      - name: customer_name
+        description: "Name of the customer associated with the order."
+
+      - name: email
+        description: "Email address of the customer."
+
+      - name: country
+        description: "Country associated with the customer."
+
+      - name: customer_status
+        description: "Current status of the customer."
+
+      - name: product_id
+        description: "Identifier of the product included in the order."
+
+      - name: product_name
+        description: "Name of the product."
+
+      - name: category
+        description: "Category assigned to the product."
+
+      - name: quantity
+        description: "Number of units of the product ordered."
+
+      - name: unit_price
+        description: "Price of one unit of the product."
+
+      - name: item_revenue
+        description: "Revenue calculated by multiplying quantity by unit price."
+
+      - name: order_amount
+        description: "Total amount associated with the order."
+
+      - name: discount
+        description: "Discount amount applied to the order."
+
+      - name: payment_amount
+        description: "Amount paid for the order."
+
+      - name: payment_status
+        description: "Current status of the payment."
+
+unit_tests:
+  - name: test_item_revenue
+    model: int_orders_enriched
+
+    given: 
+
+      - input: ref('stg_orders')
+        format: dict
+        rows:
+          - {order_id: 1001, order_date: '2026-01-01', status: 'delivered', customer_id: 1, order_amount: 200, discount: 0 }
+
+      - input: ref('stg_customers')
+        format: dict
+        rows:
+          - {customer_id: 1, customer_name: 'Test Customer', email: 'test@example.com', country: 'India', status: 'active' }
+
+      - input: ref('stg_order_items')
+        format: dict
+        rows:
+          - {order_id: 1001, product_id: 101, quantity: 2, unit_price: 100}
+
+      - input: ref('stg_products')
+        format: dict
+        rows:
+          - {product_id: 101, product_name: 'Test_Product', category: 'Electronics'}
+
+      - input: ref('stg_payments')
+        format: dict
+        rows:
+          - {order_id: 1001, payment_amount: 200, payment_status: 'paid'}
+
+    expect:
+      format: dict
+      rows:
+        - {order_id: 1001, item_revenue: 200}
