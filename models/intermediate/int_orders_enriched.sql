@@ -16,6 +16,8 @@ SELECT
     oi.quantity,
     oi.unit_price,
 
+    {{ format_amount('oi.unit_price', 2)}} As rounded_unit_price,
+
     oi.quantity * oi.unit_price AS item_revenue,
 
     o.order_amount,

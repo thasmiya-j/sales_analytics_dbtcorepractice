@@ -1,7 +1,7 @@
 --staging model for customer data
 select 
        CUSTOMER_ID,
-       CUSTOMER_NAME,
+       {{ clean_text('customer_name')}} As CUSTOMER_NAME,
        COUNTRY,
        EMAIL,
        STATUS,
