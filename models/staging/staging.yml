@@ -1,0 +1,140 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "{{ doc('stg_customers_description') }}"
+
+    columns: 
+      - name: customer_id
+        description: "unique identifier for rach customer"
+        data_tests:
+          - unique
+          - not_null
+
+      - name: email
+        description: "Email address of the customer"
+
+      - name: customer_name
+        description: "Name of the customer"
+        data_tests:
+          - not_null
+
+      - name: country
+        description: "Country associated with the customer."
+
+      - name: status
+        description: "Current status of the customer."
+
+      - name: updated_at
+        description: "Timestamp indicating when the customer record was last updated."
+
+  - name: stg_orders
+    description: "Staging model containing order information prepared for downstream analytics."
+
+    columns:
+      - name: customer_id
+        description: "Identifier of the customer who placed the order."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
+
+      - name: discount
+        description: "Discount amount applied to the order."
+
+      - name: loaded_at
+        description: "Timestamp indicating when the order record was loaded."
+
+      - name: order_amount
+        description: "Total amount associated with the order."
+        data_tests:
+          - positive_value
+
+      - name: order_date
+        description: "Date when the order was placed."
+
+      - name: order_id
+        description: "Unique identifier for the order."
+
+      - name: status
+        description: "Current status of the order."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - pending
+                  - shipped
+                  - delivered
+                  - cancelled
+                  - completed
+                  - delayed
+                  - processing
+                  - returned
+
+  - name: stg_order_items
+    description: "Staging model containing individual items associated with customer orders."
+
+    columns:
+      - name: order_id
+        description: "Identifier of the order associated with the order item."
+
+      - name: order_item_id
+        description: "Unique identifier for the order item."
+
+      - name: product_id
+        description: "Identifier of the product included in the order."
+
+      - name: quantity
+        description: "Number of units of the product included in the order."
+
+      - name: unit_price
+        description: "Price of one unit of the product."
+  - name: stg_products
+    description: "Staging model containing product information prepared for downstream analytics."
+
+    columns:
+      - name: category
+        description: "Category assigned to the product."
+
+      - name: currency
+        description: "Currency used for the product price."
+
+      - name: product_id
+        description: "Unique identifier for the product."
+
+      - name: product_name
+        description: "Name of the product."
+
+      - name: unit_price
+        description: "Price of one unit of the product."
+        data_tests:
+          - positive_value:
+              config:
+                severity: warn
+                where: "category = 'Electronics'"
+
+  - name: stg_payments
+    description: "Staging model containing payment information associated with orders."
+
+    columns:
+      - name: currency
+        description: "Currency used for the payment."
+
+      - name: order_id
+        description: "Identifier of the order associated with the payment."
+
+      - name: paid_at
+        description: "Timestamp indicating when the payment was made."
+
+      - name: payment_amount
+        description: "Amount paid for the order."
+
+      - name: payment_id
+        description: "Unique identifier for the payment."
+
+      - name: payment_status
+        description: "Current status of the payment."
+
+  
+  
