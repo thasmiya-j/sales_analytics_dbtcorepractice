@@ -1,3 +1,4 @@
+
 select 
         CUSTOMER_ID,
         DISCOUNT,
@@ -7,5 +8,3 @@ select
         ORDER_ID,
         STATUS
 FROM {{ref('orders')}}
-
-        
